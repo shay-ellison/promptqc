@@ -19,7 +19,9 @@
     "url": "git+https://github.com/shay-ellison/promptqc.git"
   },
   "keywords": [
-    "llm"
+    "llm",
+    "prompt",
+    "test"
   ],
   "author": "Shay Ellison",
   "license": "MIT",
