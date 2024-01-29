@@ -1,0 +1,39 @@
+{
+  "name": "promptqc",
+  "version": "1.0.0",
+  "description": "The modular prompt quality control and testing library",
+  "type": "module",
+  "main": "dist/src/main.js",
+  "files": ["dist"],
+  "scripts": {        
+    "build": "npm run buildtypes && mkdir -p dist/src && mv src/*.d.ts* dist/src && cp -R src/* dist/src",
+    "buildtypes": "tsc --declaration --emitDeclarationOnly --declarationMap --allowJs --checkJs --strict src/**.js",
+    "docs": "jsdoc -r -d docs src",
+    "dev": "npm run tc && node src/main.js",
+    "dev:build": "npm run tc && npm run build && node dist/src/main.js",
+    "tc": "tsc --noEmit",
+    "test": "npm run tc && node --test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shay-ellison/promptqc.git"
+  },
+  "keywords": [
+    "llm"
+  ],
+  "author": "Shay Ellison",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shay-ellison/promptqc/issues"
+  },
+  "homepage": "https://github.com/shay-ellison/promptqc#readme",
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "jsdoc": "^4.0.2",
+    "openai": "^4.24.1",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.19.0"
+  }
+}
