@@ -7,19 +7,6 @@
     "allowJs": true,
     "checkJs": true,
     "strict": true,
-
-    // "module": "esnext",
-    // "resolveJsonModule": true,
-    // "esModuleInterop": true
-
-    // Probably want to control this explicitly using CLI
-    // Because we don't need types generated for the tests
-    // But do want type checking on the tests
-    // "declaration": true,
-    // "emitDeclarationOnly": true,
-    // "declarationMap": true,
-    // "outDir": "types"
-    // npx -p typescript tsc src/**/*.js --declaration --emitDeclarationOnly --outDir types
   },
   "include": ["src/**/*.js", "tests/**/*.js", "app/**/*.js"]
 }

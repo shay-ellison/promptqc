@@ -32,7 +32,6 @@
   "devDependencies": {
     "@types/node": "^20.10.6",
     "jsdoc": "^4.0.2",
-    "openai": "^4.24.1",
     "typescript": "^5.3.3"
   },
   "engines": {
