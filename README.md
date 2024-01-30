@@ -26,7 +26,7 @@ We might make a file like this called `promptsFile.json`:
     { "role": "user", "content": "Please write prompts2 and prompts3 for me."}
   ],
   "prompts2": [
-  	{ "role": "user", "content": "Hi"}
+    { "role": "user", "content": "Hi"}
   ]
 }
 ```
@@ -44,25 +44,25 @@ import type { Prompt, QCSummary } from 'promptqc';
  * May be async or not
  */
 async function callLLM(prompts: Prompt[]): Promise<any> {
-	return {
-		role: 'assistant',
-		content: 'Assistant message.'
-	}
+    return {
+        role: 'assistant',
+        content: 'Assistant message.'
+    }
 }
 
 const qc = new QCRunner();
 
 qc.test(
-	'Prompt Test 1.1', // Whatever you want to name your test
-	'path/to/promptsFile.json', // The file where your prompts are located
-	'prompts1', // This is the promptGrp you want to test from your prompts file
-	callLLM,
-	(q, response) => {
-		// You're provided with a QContext object (q)
-		// and the response from the provided completion function
-		q.assertEqual(response.role, 'assistant');
-		q.assertIncludes(response.content, 'message');
-	}
+    'Prompt Test 1.1', // Whatever you want to name your test
+    'path/to/promptsFile.json', // The file where your prompts are located
+    'prompts1', // This is the promptGrp you want to test from your prompts file
+    callLLM,
+    (q, response) => {
+        // You're provided with a QContext object (q)
+        // and the response from the provided completion function
+        q.assertEqual(response.role, 'assistant');
+        q.assertIncludes(response.content, 'message');
+    }
 );
 
 // Running the QCRunner produces a QCSummary
@@ -152,39 +152,39 @@ Since we pull from the same prompts file, but the tests are separate, we can cal
 
 ```typescript
 function callLLM1(prompts: Prompt[]): any {
-	// Call LLM 1
+    // Call LLM 1
 }
 
 function callLLM2(prompts: Prompt[]): any {
-	// Call LLM 2
+    // Call LLM 2
 }
 
 const qc = new QCRunner();
 
 qc.test(
-	'Prompt Test 1.1', // Whatever you want to name your test
-	'path/to/promptsFile.json', // The file where your prompts are located
-	'prompts1', // This is the promptGrp you want to test from your prompts file
-	callLLM1,
-	(q, response) => {
-		// You're provided with a QContext object (q)
-		// and the response from the provided completion function
-		q.assertEqual(response.role, 'assistant');
-		q.assertIncludes(response.content, 'message');
-	}
+    'Prompt Test 1.1', // Whatever you want to name your test
+    'path/to/promptsFile.json', // The file where your prompts are located
+    'prompts1', // This is the promptGrp you want to test from your prompts file
+    callLLM1,
+    (q, response) => {
+        // You're provided with a QContext object (q)
+        // and the response from the provided completion function
+        q.assertEqual(response.role, 'assistant');
+        q.assertIncludes(response.content, 'message');
+    }
 );
 
 qc.test(
-	'Prompt Test 1.2', // Whatever you want to name your test
-	'path/to/promptsFile.json', // The file where your prompts are located
-	'prompts1', // This is the promptGrp you want to test from your prompts file
-	callLLM2,
-	(q, response) => {
-		// You're provided with a QContext object (q)
-		// and the response from the provided completion function
-		q.assertEqual(response.role, 'assistant');
-		q.assertIncludes(response.content, 'message');
-	}
+    'Prompt Test 1.2', // Whatever you want to name your test
+    'path/to/promptsFile.json', // The file where your prompts are located
+    'prompts1', // This is the promptGrp you want to test from your prompts file
+    callLLM2,
+    (q, response) => {
+        // You're provided with a QContext object (q)
+        // and the response from the provided completion function
+        q.assertEqual(response.role, 'assistant');
+        q.assertIncludes(response.content, 'message');
+    }
 );
 ```
 
@@ -196,10 +196,10 @@ then you can call `QCRunner#complete` instead.
 const qc = new QCRunner();
 
 qc.complete(
-	'Complete 1.1', // Completion/"test" name
-	'path/to/promptsFile.json', // Prompts file
-	'prompts1', // Prompt Group
-	callLLM // Just the completion function
+    'Complete 1.1', // Completion/"test" name
+    'path/to/promptsFile.json', // Prompts file
+    'prompts1', // Prompt Group
+    callLLM // Just the completion function
 );
 ```
 
