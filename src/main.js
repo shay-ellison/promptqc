@@ -117,9 +117,6 @@ export class QError extends Error {
 		/** @type {string} */
 		this.step = step;
 	}
-
-	// toString() {
-	// }
 }
 
 // This is an unexpected Error that happens during an Assertion
@@ -215,9 +212,9 @@ export class QContext {
 				throw new AssertionError(e.toString(), e);
 			} else {
 				throw new AssertionError("", undefined);
-			}			
+			}
 		}
-		
+
 		// ObjectEquals and Equals, but just use Equals for an easy life
 		this.logAssertion(lval, rval, "StrictEqual", result);
 		return result;
@@ -228,7 +225,7 @@ export class QContext {
 	 * @param {object} rval
 	 * @returns {boolean}
 	 */
-	assertDeepStrictEqual(lval, rval) {		
+	assertDeepStrictEqual(lval, rval) {
 		let result = false;
 		try {
 			assert.deepStrictEqual(lval, rval);
@@ -242,9 +239,9 @@ export class QContext {
 				throw new AssertionError(e.toString(), e);
 			} else {
 				throw new AssertionError("", undefined);
-			}			
+			}
 		}
-		
+
 		// ObjectEquals and Equals, but just use Equals for an easy life
 		this.logAssertion(lval, rval, "DeepStrictEqual", result);
 		return result;
@@ -265,14 +262,14 @@ export class QContext {
 				throw new AssertionError("'includes' method not defined for 'lval'");
 			}
 		} catch(e) {
-			if (e instanceof Error) {				
+			if (e instanceof Error) {
 				throw new AssertionError(e.toString(), e);
 			} else {
 				if (e === null || e === undefined) {
 					throw new AssertionError("Unknown error occurred", undefined);
 				} else {
 					throw new AssertionError(e.toString(), undefined);
-				}				
+				}
 			}
 		}
 
@@ -315,7 +312,7 @@ export class QContext {
 			return 1.0;
 		}
 		this.score = this.numPassed / this.numAssertions;
-		return this.score;	
+		return this.score;
 	}
 
 	/**
@@ -354,7 +351,7 @@ export function checkValidPromptMap(possPromptMap) {
  * @returns {Promise<PromptMap>}
  * @throws {Error}
  */
-export async function readPromptFile(filepath) {	
+export async function readPromptFile(filepath) {
 	const json = await readFile(filepath, {
 		encoding: "ascii"
 	});
@@ -434,11 +431,9 @@ export async function processQCDef(qcDef, prompts) {
 	/** @type {*} */
 	let response;
 	try {
-		response = await qcDef.completionFunc(prompts);				
+		response = await qcDef.completionFunc(prompts);
 	} catch(e) {
 		if (e instanceof Error) {
-			// /** @type {Error} */
-			// const error = e;
 			qcResult.error = new QError("", e, Step.CallCompletion);
 		} else {
 			qcResult.error = new QError("Unknown error occurred in 'completionFunc'", undefined, Step.CallCompletion);
@@ -458,8 +453,6 @@ export async function processQCDef(qcDef, prompts) {
 		responsePrompt = await qcDef.testFunc(qContext, response) ?? response;
 	} catch(e) {
 		if (e instanceof Error) {
-			// /** @type {Error} */
-			// const error = e;
 			qcResult.error = new QError("", e, Step.TestFunc);
 		} else {
 			qcResult.error = new QError("Unknown error occurred in 'testFunc'", undefined, Step.TestFunc);
@@ -540,8 +533,8 @@ export function checkQConfig(qConfig) {
 			stats = statSync(qConfig.promptFile);
 		} catch(statError) {
 			// @ts-ignore
-			if (statError instanceof Error && statError.code === "ENOENT") {				
-				return ce(`'promptFile' '${qConfig.promptFile}' does not exist.`);				
+			if (statError instanceof Error && statError.code === "ENOENT") {
+				return ce(`'promptFile' '${qConfig.promptFile}' does not exist.`);
 			} else {
 				return ce(`'promptFile' '${qConfig.promptFile}' is inaccessible.`);
 			}
@@ -584,7 +577,7 @@ export class QCRunner {
 	 */
 	qcDef(
 		qConfig,
-		completionFunc,	
+		completionFunc,
 		testFunc
 	) {
 		const configError = checkQConfig(qConfig);
@@ -598,7 +591,6 @@ export class QCRunner {
 			completionFunc,
 			testFunc
 		};
-		// this.qcDefs.push(qcDef);		
 
 		/** @type {undefined|QCDef[]} */
 		const qcDefs = this.promptQCDefs[qcDef.qConfig.promptFile];
@@ -612,7 +604,7 @@ export class QCRunner {
 	}
 
 	/**
-	 * Chat Complete and Test the prompts for a given promptGrp in a prom
+	 * Chat Complete and Test the prompts for a given promptGrp in a promptFile
 	 * @param {string} testName
 	 * @param {string} promptFile
 	 * @param {string} promptGrp
@@ -628,7 +620,7 @@ export class QCRunner {
 		completionFunc,
 		testFunc,
 		{ scoreReq=undefined }={}
-	) {		
+	) {
 		return this.qcDef(
 			{
 				testName,
@@ -672,7 +664,7 @@ export class QCRunner {
 	async run() {
 		const startTotal = performance.now();
 
-		/** @type {QCResult[]} */	
+		/** @type {QCResult[]} */
 		const qcResults = [];
 		/** @type {SummaryTimeStats} */
 		const timeStats = {
@@ -701,7 +693,7 @@ export class QCRunner {
 				}
 				continue;
 			}
-			
+
 			/** @type {QCDef[]} */
 			const qcDefs = this.promptQCDefs[promptFilepath] ?? [];
 			for (let qcDef of qcDefs) {
@@ -719,7 +711,7 @@ export class QCRunner {
 		}
 
 		const results = await Promise.allSettled(qcPromises);
-		
+
 		for (let result of results) {
 			if (result.status === "fulfilled") {
 				qcResults.push(result.value);
@@ -761,7 +753,7 @@ export function makeAssertionHumanReadable(assertion) {
  * @param {QError} qError
  * @returns {string}
  */
-export function makeQErrorHumanReadable(qError) {	
+export function makeQErrorHumanReadable(qError) {
 	if (!qError.cause) {
 		return `${qError.step}: Error: ${qError.message}`;
 	} else {
@@ -785,7 +777,7 @@ export const FgColorCode = Object.freeze({
  * @param {QCSummary} qcSummary
  * @param {string} saveFile
  */
-export async function saveSummaryToJSON(qcSummary, saveFile) {	
+export async function saveSummaryToJSON(qcSummary, saveFile) {
 	const outJSON = JSON.stringify(qcSummary, null, 2);
 	await writeFile(saveFile, outJSON, {
 		encoding: "ascii" // might want flush: true

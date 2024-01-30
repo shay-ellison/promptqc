@@ -77,29 +77,29 @@ test("QCRunner.qcDef with valid QConfig", (t) => {
 	let throws = false;
 	try {
 		const qcDef = qc.qcDef(qConfig, dummyCompletion, dummyTest);
-	} catch(e) {		
+	} catch(e) {
 		throws = true;
 	}
 	assert.strictEqual(throws, false);
 });
 
-test("QCRunner.test with valid args", (t) => {	
+test("QCRunner.test with valid args", (t) => {
 	const qc = new QCRunner();
 	let throws = false;
 	try {
 		const qcDef = qc.test("Test 1", TEST1_FILEPATH, "test1", dummyCompletion, dummyTest);
-	} catch(e) {		
+	} catch(e) {
 		throws = true;
 	}
 	assert.strictEqual(throws, false);
 });
 
-test("QCRunner.complete with valid args", (t) => {	
+test("QCRunner.complete with valid args", (t) => {
 	const qc = new QCRunner();
 	let throws = false;
 	try {
 		const qcDef = qc.complete("Complete 1", TEST1_FILEPATH, "test1", dummyCompletion);
-	} catch(e) {		
+	} catch(e) {
 		throws = true;
 	}
 	assert.strictEqual(throws, false);
@@ -398,8 +398,8 @@ test("QCRunner.run from same file with no issues and all assertions passing", as
 	assert.strictEqual(qcResult4.scoreReq, 0.67);
 	assert.strictEqual(qcResult4.passed, true);
 
-	assert.doesNotThrow(() => { printSummary(qcSummary) });	
-	await saveSummaryToJSON(qcSummary, join(outDir, "testRun1.out.json"));	
+	assert.doesNotThrow(() => { printSummary(qcSummary) });
+	await saveSummaryToJSON(qcSummary, join(outDir, "testRun1.out.json"));
 });
 
 test("QCRunner.run from same file with issues and failed assertions", async (t) => {
@@ -485,7 +485,7 @@ test("QCRunner.run from same file with issues and failed assertions", async (t) 
 	const prompts2 = qcResult2.prompts;
 	assert.notStrictEqual(qcResult2.error, null);
 
-	const qcResult3 = qcSummary.qcResults[2];	
+	const qcResult3 = qcSummary.qcResults[2];
 	assert.strictEqual(qcResult3.score, 1);
 	assert.strictEqual(qcResult3.passed, true);
 
